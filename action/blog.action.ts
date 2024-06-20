@@ -32,6 +32,7 @@ export type IBlog = {
 
 export const createBlog = async (payload: ICreateBlog): Promise<IBlog> => {
   const accessToken = await getAccessToken();
+  console.log("🚀 ~ createBlog ~ accessToken:", accessToken);
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
@@ -40,6 +41,7 @@ export const createBlog = async (payload: ICreateBlog): Promise<IBlog> => {
     method: "POST",
     body: JSON.stringify(payload),
   });
+  console.log("🚀 ~ createBlog ~ response:", response);
   const result = await response.json();
   return result;
 };
