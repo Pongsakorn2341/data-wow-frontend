@@ -1,15 +1,31 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useDebounce from "./useDebounce.hook";
+import { IBlog } from "@/lib/types/blog";
+import { getBlog, getBlogs } from "@/action/blog.action";
+import { removeUndefinedValues } from "@/lib/helper";
 
 const useBlog = () => {
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useSearchParams();
   const search = useDebounce(params);
 
   const fetchBlogs = useCallback(async () => {
-    console.log(`[search] FETCH : `, search);
+    setIsLoading(true);
+    const query = new URLSearchParams(
+      removeUndefinedValues({
+        category: search?.get("category"),
+        title: search?.get("title"),
+      })
+    );
+    const res = await getBlogs(`?${query.toString()}`);
+    if (Array.isArray(res)) {
+      setBlogs(res);
+    }
+    setIsLoading(false);
   }, [search]);
 
   useEffect(() => {
@@ -20,9 +36,12 @@ const useBlog = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [fetchBlogs]);
 
-  return {};
+  return {
+    data: blogs,
+    isLoading,
+  };
 };
 
 export default useBlog;

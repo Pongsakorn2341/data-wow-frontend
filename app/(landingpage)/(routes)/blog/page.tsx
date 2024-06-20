@@ -1,13 +1,19 @@
-import BlogComment from "@/components/blog/BlogComment";
-import BlogDetail from "@/components/blog/BlogDetail";
+import { getOwnBlogs } from "@/action/blog.action";
+import BlogList from "@/components/blog/BlogList";
+import BlogSearch from "@/components/blog/BlogSearch";
+import { notFound } from "next/navigation";
 
-const blogDetailPage = () => {
+const blogDetailPage = async () => {
+  const blogs = await getOwnBlogs();
+  console.log("🚀 ~ blogDetailPage ~ blogs:", blogs);
+  if (!Array.isArray(blogs)) {
+    notFound();
+  }
+
   return (
-    <section className="bg-white min-h-[calc(100dvh-72px)] p-4 block md:top-16">
-      <div className="container max-w-[800px] sm:max-w-[1000px]">
-        <BlogDetail />
-        <BlogComment />
-      </div>
+    <section className="relative sm:p-4 block  max-w-[800px] sm:max-w-[1000px]">
+      <BlogSearch />
+      <BlogList blogs={blogs} />
     </section>
   );
 };

@@ -2,10 +2,10 @@
 
 import { Badge } from "@/components/ui/badge";
 
+import { IBlog } from "@/lib/types/blog";
 import Link from "next/link";
 import { FaRegComment } from "react-icons/fa6";
 import Profile from "../common/Profile";
-import { IBlog } from "@/action/blog.action";
 
 type BlogCardProps = {
   blogData: IBlog;

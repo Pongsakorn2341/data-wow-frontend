@@ -50,14 +50,17 @@ export const deleteBlog = async (blogId: string) => {
   return result;
 };
 
-export const getBlogs = async (): Promise<IBlog[]> => {
+export const getBlogs = async (query = ""): Promise<IBlog[]> => {
   const accessToken = await getAccessToken();
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog`, {
-    headers: headers,
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog${query}`,
+    {
+      headers: headers,
+    }
+  );
   const result: IBlog[] = await response.json();
   return result;
 };

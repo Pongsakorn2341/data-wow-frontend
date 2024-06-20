@@ -74,7 +74,12 @@ const BlogActionDialog = ({}: BlogActionDialogProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2 w-full">
             <div className="flex items-center w-full sm:w-fit">
-              <Select {...form.register("category")}>
+              <Select
+                {...form.register("category")}
+                onValueChange={(e) => {
+                  form.setValue("category", e);
+                }}
+              >
                 <SelectTrigger className="flex items-center justify-center gap-2 bg-transparent border border-primary text-primary">
                   <SelectValue placeholder="Choose a community" />
                 </SelectTrigger>
