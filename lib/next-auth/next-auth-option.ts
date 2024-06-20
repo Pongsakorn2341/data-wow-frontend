@@ -12,8 +12,7 @@ declare module "next-auth" {
   }
   interface User {
     id: string;
-    name: string;
-    email: string;
+    username: string;
     image: string;
     created_at: string;
     instance_id: string;
@@ -36,8 +35,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "Email" },
-        password: { label: "Password", type: "password" },
+        username: { label: "Username", type: "text", placeholder: "Username" },
         is_remember_me: {
           label: "Is remember me",
           type: "boolean",
@@ -45,13 +43,12 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        if (!credentials?.email || !credentials.password) {
-          throw new Error(`Require email & password.`);
+        if (!credentials?.username) {
+          throw new Error(`Username is required.`);
         }
         try {
           const payload = {
-            email: credentials.email,
-            password: credentials.password,
+            username: credentials.username,
             is_remember_me: !!credentials.is_remember_me,
           } as ILoginProps;
           const result: Session = await signIn(payload);
