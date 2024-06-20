@@ -33,5 +33,6 @@ export type IComment = {
   blog_id: string;
   detail: string;
   created_by: string;
+  created_at: string;
   User: ICreator;
 };

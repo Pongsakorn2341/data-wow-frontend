@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import AddCommentDialog from "./[dialog]/AddCommentDialog";
 import { useRouter } from "next/navigation";
+import { dateFromNow } from "@/lib/dayjs/dayjs";
+import dayjs from "dayjs";
 
 const schema = z.object({
   comment: z.string().min(1, { message: `Please enter a comment` }),
@@ -88,7 +90,9 @@ const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
             <div className="pt-1">
               <div className="flex items-center gap-2">
                 <p className="text-sm">{commentData?.User?.username}</p>
-                <p className="text-xs text-clr-gray-300">5 min ago</p>
+                <p className="text-xs text-clr-gray-300">
+                  {dateFromNow(dayjs(commentData.created_at))}
+                </p>
               </div>
               <p className="font-normal my-4 text-xs">{commentData.detail}</p>
             </div>

@@ -25,7 +25,11 @@ const BlogCard = ({ blogData, isOwn = false }: BlogCardProps) => {
     >
       <Link href={isOwn ? "#" : `/blog/${blogData.id}`}>
         <div className="flex justify-between">
-          <Profile name={blogData?.User?.username} profile_image="" />
+          <Profile
+            name={blogData?.User?.username}
+            profile_image=""
+            active_at={blogData.created_at}
+          />
           {isOwn ? (
             <div className="flex gap-4">
               <FaRegEdit onClick={() => onOpen(blogData)} />

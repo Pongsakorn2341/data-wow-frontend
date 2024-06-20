@@ -2,7 +2,9 @@
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { dateFromNow } from "@/lib/dayjs/dayjs";
 import { IBlog } from "@/lib/types/blog";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { FaAngleLeft, FaRegComment } from "react-icons/fa6";
 
@@ -28,7 +30,9 @@ const BlogDetail = ({ blogData }: BlogDetailProps) => {
         <p className="text-clr-text text-sm font-bold">
           {blogData?.User?.username}
         </p>
-        <p className="text-xs text-clr-gray-300">5 min ago</p>
+        <p className="text-xs text-clr-gray-300">
+          {dateFromNow(dayjs(blogData.created_at))}
+        </p>
       </div>
       <Badge variant={"category"} className="my-2">
         {blogData.category}
