@@ -29,7 +29,7 @@ export const updateBlog = async (blogId: string, payload: ICreateBlog) => {
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${blogId}`,
     {
       headers: headers,
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify(payload),
     }
   );
