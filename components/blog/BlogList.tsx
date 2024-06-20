@@ -13,7 +13,6 @@ type BlogListProps = {
 };
 
 const BlogList = (props?: BlogListProps) => {
-  console.log("🚀 PROPS :", props);
   const { data: blogs, isLoading = false } = useBlog({
     isOwn: Boolean(props?.isOwn),
   });

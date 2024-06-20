@@ -29,7 +29,7 @@ const BlogCard = ({ blogData }: BlogCardProps) => {
         </p>
         <div className="flex items-center gap-2 text-zinc-400">
           <FaRegComment className="my-2" />
-          {blogData?._count.Comment} Comments
+          {blogData?._count?.Comment} Comments
         </div>
       </Link>
     </div>

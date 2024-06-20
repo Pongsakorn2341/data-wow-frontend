@@ -37,7 +37,7 @@ const BlogDetail = ({ blogData }: BlogDetailProps) => {
       <p className="text-xs">{blogData.detail}</p>
       <div className="flex items-center gap-2 text-xs my-4 text-clr-gray-300">
         <FaRegComment />
-        {blogData._count.Comment} Comments
+        {blogData?._count?.Comment} Comments
       </div>
     </div>
   );
