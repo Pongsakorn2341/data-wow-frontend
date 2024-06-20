@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { FaRegEdit } from "react-icons/fa";
 import { RiHome3Line } from "react-icons/ri";
+import { Button } from "../ui/button";
+import { signOut } from "next-auth/react";
 
 const routes = [
   {
@@ -26,7 +28,7 @@ const Sidebar = () => {
 
   return (
     <div className="space-y-4 p-4 flex flex-col h-full bg-clr-green-500 sm:bg-clr-gray-100 sm:text-clr-text text-white">
-      <div className="px-3 py-2 flex-1 mt-4">
+      <div className="px-3 py-2 flex-1 flex-col mt-4 justify-between">
         <div className="space-y-1 mt-6 sm:mt-0">
           {routes.map((route) => (
             <Link
@@ -46,6 +48,7 @@ const Sidebar = () => {
             </Link>
           ))}
         </div>
+        <Button onClick={() => signOut()}>Sign out</Button>
       </div>
     </div>
   );
