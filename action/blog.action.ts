@@ -80,13 +80,13 @@ export const getBlog = async (id: string): Promise<IBlog> => {
   return result;
 };
 
-export const getOwnBlogs = async () => {
+export const getOwnBlogs = async (query = "") => {
   const accessToken = await getAccessToken();
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/own`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/own?${query}`,
     {
       headers: headers,
     }

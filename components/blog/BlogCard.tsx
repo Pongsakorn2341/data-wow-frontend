@@ -19,7 +19,7 @@ const BlogCard = ({ blogData }: BlogCardProps) => {
       onClick={(e) => e.preventDefault()}
     >
       <Link href={`/blog/${blogData.id}`}>
-        <Profile name={"test"} profile_image="" />
+        <Profile name={blogData?.User?.username} profile_image="" />
         <Badge variant={"category"} className="my-2">
           {blogData.category}
         </Badge>
