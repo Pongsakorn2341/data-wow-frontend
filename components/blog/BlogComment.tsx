@@ -88,7 +88,7 @@ const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
             </div>
             <div className="pt-1">
               <div className="flex items-center gap-2">
-                <p className="text-sm">{commentData.created_by}</p>
+                <p className="text-sm">{commentData?.User?.username}</p>
                 <p className="text-xs text-clr-gray-300">5 min ago</p>
               </div>
               <p className="font-normal my-4 text-xs">{commentData.detail}</p>
