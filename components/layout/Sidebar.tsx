@@ -8,6 +8,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiHome3Line } from "react-icons/ri";
 import { Button } from "../ui/button";
 import { signOut } from "next-auth/react";
+import { IoExitOutline } from "react-icons/io5";
 
 const routes = [
   {
@@ -27,8 +28,8 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="space-y-4 p-4 flex flex-col h-full bg-clr-green-500 sm:bg-clr-gray-100 sm:text-clr-text text-white">
-      <div className="px-3 py-2 flex-1 flex-col mt-4 justify-between">
+    <div className="space-y-4 p-4 flex flex-col justify-between h-full bg-clr-green-500 sm:bg-clr-gray-100 sm:text-clr-text text-white">
+      <div className="px-3 py-2 flex-1 mt-4">
         <div className="space-y-1 mt-6 sm:mt-0">
           {routes.map((route) => (
             <Link
@@ -48,7 +49,13 @@ const Sidebar = () => {
             </Link>
           ))}
         </div>
-        <Button onClick={() => signOut()}>Sign out</Button>
+        <Button
+          onClick={() => signOut()}
+          variant={"destructive"}
+          className="bg-transparent mt-1 flex gap-2 text-red-500 w-full justify-start hover:text-white"
+        >
+          <IoExitOutline /> Sign out
+        </Button>
       </div>
     </div>
   );
