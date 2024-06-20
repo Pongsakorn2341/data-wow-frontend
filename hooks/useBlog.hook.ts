@@ -14,6 +14,7 @@ type useBlogProps = {
 const useBlog = (props?: useBlogProps) => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [toggleRefetch, setToggle] = useState(false);
   const params = useSearchParams();
   const search = useDebounce(params);
 
@@ -32,7 +33,7 @@ const useBlog = (props?: useBlogProps) => {
       setBlogs(res);
     }
     setIsLoading(false);
-  }, [search, props?.isOwn]);
+  }, [search, props?.isOwn, toggleRefetch]);
 
   useEffect(() => {
     let isMounted = true;
@@ -47,6 +48,7 @@ const useBlog = (props?: useBlogProps) => {
   return {
     data: blogs,
     isLoading,
+    refetch: () => setToggle((prev) => !prev),
   };
 };
 
