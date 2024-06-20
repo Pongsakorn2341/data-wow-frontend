@@ -5,30 +5,31 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { FaRegComment } from "react-icons/fa6";
 import Profile from "../common/Profile";
+import { IBlog } from "@/action/blog.action";
 
 type BlogCardProps = {
-  mockData: any;
+  blogData: IBlog;
 };
 
-const BlogCard = ({ mockData }: BlogCardProps) => {
+const BlogCard = ({ blogData }: BlogCardProps) => {
   return (
     <div
-      className="p-5 gap-2 cursor-pointer"
-      key={mockData.title}
+      className="p-5 gap-2 cursor-pointer w-full"
+      key={blogData.title + blogData.created_at}
       onClick={(e) => e.preventDefault()}
     >
-      <Link href={`/blog/1`}>
+      <Link href={`/blog/${blogData.id}`}>
         <Profile name={"test"} profile_image="" />
         <Badge variant={"category"} className="my-2">
-          {mockData.category}
+          {blogData.category}
         </Badge>
-        <p className="text-base font-semibold">{mockData.title}</p>
+        <p className="text-base font-semibold">{blogData.title}</p>
         <p className="text-sm text-zinc-600 font-normal line-clamp-2">
-          {mockData.description}
+          {blogData.detail}
         </p>
         <div className="flex items-center gap-2 text-zinc-400">
           <FaRegComment className="my-2" />
-          {mockData?.comment?._count} Comments
+          {blogData?._count.Comment} Comments
         </div>
       </Link>
     </div>

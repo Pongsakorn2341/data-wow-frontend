@@ -16,7 +16,7 @@ type ICreator = {
   updated_at: string;
 };
 
-type IBlog = {
+export type IBlog = {
   id: string;
   title: string;
   detail: string;
@@ -25,6 +25,9 @@ type IBlog = {
   created_at: string;
   updated_at: string;
   User: ICreator;
+  _count: {
+    Comment: number;
+  };
 };
 
 export const createBlog = async (payload: ICreateBlog): Promise<IBlog> => {
