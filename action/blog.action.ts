@@ -6,7 +6,28 @@ type ICreateBlog = {
   detail: string;
 };
 
-export const createBlog = async (payload: ICreateBlog) => {
+type ICreator = {
+  id: string;
+  username: string;
+  profile_image: string | null;
+  role: "USER" | "ADMIN" | "SUPERADMIN";
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+type IBlog = {
+  id: string;
+  title: string;
+  detail: string;
+  category: string;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+  User: ICreator;
+};
+
+export const createBlog = async (payload: ICreateBlog): Promise<IBlog> => {
   const accessToken = await getAccessToken();
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -53,7 +74,7 @@ export const deleteBlog = async (blogId: string) => {
   return result;
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (): Promise<IBlog[]> => {
   const accessToken = await getAccessToken();
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -61,7 +82,7 @@ export const getBlogs = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog`, {
     headers: headers,
   });
-  const result = await response.json();
+  const result: IBlog[] = await response.json();
   return result;
 };
 
