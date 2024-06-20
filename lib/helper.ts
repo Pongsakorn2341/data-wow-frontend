@@ -74,7 +74,6 @@ export const handleError = (
     }
     result.code = axiosError.response?.status || 400;
   } else if (error instanceof ZodError) {
-    console.log("-instanceof- ZodError");
     let errors = error.errors.reduce(
       (acc, current) => ({
         ...acc,
@@ -114,8 +113,6 @@ export const handleError = (
     });
   }
   if (isPopup && result.isAbort == false) {
-    console.log(`RESEE`, result);
-    console.log(`%c [ERROR] : ${result.message}`);
     toast.error(result.message);
   }
   return result;
@@ -213,7 +210,6 @@ export const fetchBackend = async <T>({
 export async function delay(time = 5000) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log("== reload ==");
       resolve(true);
     }, time);
   });
