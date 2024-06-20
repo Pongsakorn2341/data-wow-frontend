@@ -1,5 +1,6 @@
 "use client";
 
+import { createComment } from "@/action/comment.action";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +14,7 @@ import { useAddCommentDialog } from "@/store/useAddCommentDialog";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const schema = z.object({
@@ -20,9 +22,11 @@ const schema = z.object({
 });
 type ISchema = z.infer<typeof schema>;
 
-type AddCommentDialogProps = {};
+type AddCommentDialogProps = {
+  blogId: string;
+};
 
-const AddCommentDialog = ({}: AddCommentDialogProps) => {
+const AddCommentDialog = ({ blogId }: AddCommentDialogProps) => {
   const { isOpen, onClose } = useAddCommentDialog();
   const router = useRouter();
   const form = useForm<ISchema>({
@@ -38,6 +42,18 @@ const AddCommentDialog = ({}: AddCommentDialogProps) => {
   const { errors } = form.formState;
 
   const onSubmit = async (data: ISchema) => {
+    const comment = await createComment({
+      blog_id: blogId,
+      detail: data.comment,
+    });
+    if (comment.id) {
+      toast.success(`Comment addded`);
+      form.reset({ comment: "" });
+      router.refresh();
+      onCloseModal();
+    } else {
+      toast.error(`Failed to comment`);
+    }
     // try {
     //   if (!data.name) {
     //     toast.error(`Portfolio name is not provided`);

@@ -23,7 +23,7 @@ type BlogCommentProps = {
 };
 
 const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
-  const { onOpen } = useAddCommentDialog();
+  const { onOpen, onClose } = useAddCommentDialog();
   const router = useRouter();
   const form = useForm<ISchema>({
     resolver: zodResolver(schema),
@@ -32,7 +32,6 @@ const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
   console.log("🚀 ~ BlogComment ~ errors:", errors);
 
   const onSubmit = async (data: ISchema) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     const comment = await createComment({
       blog_id: blogId,
       detail: data.comment,
@@ -97,7 +96,7 @@ const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
           </div>
         );
       })}
-      <AddCommentDialog />
+      <AddCommentDialog blogId={blogId} />
     </div>
   );
 };
