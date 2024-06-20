@@ -1,5 +1,6 @@
 "use client";
 
+import { createBlog, IBlog } from "@/action/blog.action";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,12 +20,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { CategoryList } from "@/lib/data/category.data";
 import { useBlogActionDialog } from "@/store/useBlogActionDialog";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { register } from "module";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const schema = z.object({
   title: z.string().min(1, { message: `Title is required` }),
   detail: z.string().min(1, { message: `Detail is required` }),
+  category: z
+    .string()
+    .min(1, { message: `Category is required` })
+    .default("history"),
 });
 type ISchema = z.infer<typeof schema>;
 
@@ -32,6 +40,7 @@ type BlogActionDialogProps = {};
 
 const BlogActionDialog = ({}: BlogActionDialogProps) => {
   const { isOpen, onClose } = useBlogActionDialog();
+  const router = useRouter();
   const form = useForm<ISchema>({
     resolver: zodResolver(schema),
   });
@@ -46,21 +55,14 @@ const BlogActionDialog = ({}: BlogActionDialogProps) => {
   console.log("🚀 ~ BlogActionDialog ~ errors:", errors);
 
   const onSubmit = async (data: ISchema) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
-    // try {
-    //   if (!data.name) {
-    //     toast.error(`Portfolio name is not provided`);
-    //     return;
-    //   }
-    //   const response = await addBlog(data.name);
-    //   if (response) {
-    //     toast.success(`Portfolio ${data.name} is added.`);
-    //     router.refresh();
-    //     onCloseModal();
-    //   }
-    // } catch (e) {
-    //   handleError(e, true);
-    // }
+    const response = await createBlog(data as IBlog);
+    if (response?.id) {
+      toast.success(`Blog ${data.title} is created.`);
+      router.refresh();
+      onCloseModal();
+    } else {
+      toast.error(`${(response as any).message}`);
+    }
   };
 
   return (
@@ -72,17 +74,17 @@ const BlogActionDialog = ({}: BlogActionDialogProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2 w-full">
             <div className="flex items-center w-full sm:w-fit">
-              <Select
-                onValueChange={(e) => {
-                  e;
-                }}
-              >
+              <Select {...form.register("category")}>
                 <SelectTrigger className="flex items-center justify-center gap-2 bg-transparent border border-primary text-primary">
                   <SelectValue placeholder="Choose a community" />
                 </SelectTrigger>
                 <SelectContent>
                   {CategoryList.map((cateData) => (
-                    <SelectItem value={cateData.value} key={cateData.value}>
+                    <SelectItem
+                      value={cateData.value}
+                      key={cateData.value}
+                      onClick={() => form.setValue("category", cateData.value)}
+                    >
                       {cateData.label}
                     </SelectItem>
                   ))}

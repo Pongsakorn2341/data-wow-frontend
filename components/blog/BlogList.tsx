@@ -14,7 +14,7 @@ const BlogList = ({ blogs }: IBlogListProps) => {
       {blogs.length == 0 ? (
         <div className="flex justify-center ">
           <p className="w-fit italic p-4 font-semibold ">
-            Post what's on your mind ...
+            Post what&apos;s on your mind ...
           </p>
         </div>
       ) : null}

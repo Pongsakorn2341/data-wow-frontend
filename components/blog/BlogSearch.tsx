@@ -15,12 +15,14 @@ import { FaPlus } from "react-icons/fa6";
 import BlogActionDialog from "./[dialog]/BlogActionDialog";
 import { useBlogActionDialog } from "@/store/useBlogActionDialog";
 import { CategoryList } from "@/lib/data/category.data";
+import { useSession } from "next-auth/react";
 
 const BlogSearch = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { onOpen } = useBlogActionDialog();
+  const session = useSession();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -71,7 +73,12 @@ const BlogSearch = () => {
           ))}
         </SelectContent>
       </Select>
-      <Button variant={"default"} className="flex gap-2 mx-2" onClick={onOpen}>
+      <Button
+        variant={"default"}
+        className="flex gap-2 mx-2"
+        onClick={onOpen}
+        disabled={session.status != "authenticated"}
+      >
         Create <FaPlus />
       </Button>
       <BlogActionDialog />
