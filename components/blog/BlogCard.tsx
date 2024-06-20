@@ -8,6 +8,7 @@ import { FaRegComment, FaRegTrashCan, FaTrash } from "react-icons/fa6";
 import Profile from "../common/Profile";
 import { FaRegEdit } from "react-icons/fa";
 import { useBlogActionDialog } from "@/store/useBlogActionDialog";
+import DeleteBlogDialog from "./[dialog]/DeleteBlogDialog";
 
 type BlogCardProps = {
   blogData: IBlog;
@@ -31,9 +32,9 @@ const BlogCard = ({ blogData, isOwn = false }: BlogCardProps) => {
             active_at={blogData.created_at}
           />
           {isOwn ? (
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4">
               <FaRegEdit onClick={() => onOpen(blogData)} />
-              <FaRegTrashCan />
+              <DeleteBlogDialog id={blogData.id} />
             </div>
           ) : null}
         </div>
