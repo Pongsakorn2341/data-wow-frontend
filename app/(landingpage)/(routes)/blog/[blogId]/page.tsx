@@ -6,13 +6,11 @@ import { notFound } from "next/navigation";
 
 const blogDetailPage = async (req: { params: { blogId: string } }) => {
   const blogData = await getBlog(req.params.blogId);
-  console.log("🚀 ~ blogDetailPage ~ blogData:", blogData);
   if (!blogData) {
     notFound();
   }
 
   const comments = await getComments(blogData.id);
-  console.log("🚀 ~ blogDetailPage ~ comments:", comments);
   if (!Array.isArray(comments)) {
     notFound();
   }

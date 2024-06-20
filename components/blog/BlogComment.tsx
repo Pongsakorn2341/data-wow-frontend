@@ -29,7 +29,6 @@ const BlogComment = ({ comments, blogId }: BlogCommentProps) => {
     resolver: zodResolver(schema),
   });
   const { errors } = form.formState;
-  console.log("🚀 ~ BlogComment ~ errors:", errors);
 
   const onSubmit = async (data: ISchema) => {
     const comment = await createComment({

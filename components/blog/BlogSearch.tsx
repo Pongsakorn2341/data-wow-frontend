@@ -76,12 +76,11 @@ const BlogSearch = () => {
       <Button
         variant={"default"}
         className="flex gap-2 mx-2"
-        onClick={onOpen}
+        onClick={() => onOpen()}
         disabled={session.status != "authenticated"}
       >
         Create <FaPlus />
       </Button>
-      <BlogActionDialog />
     </div>
   );
 };

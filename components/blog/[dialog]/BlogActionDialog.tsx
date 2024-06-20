@@ -1,6 +1,6 @@
 "use client";
 
-import { createBlog } from "@/action/blog.action";
+import { createBlog, updateBlog } from "@/action/blog.action";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,6 +22,7 @@ import { IBlog } from "@/lib/types/blog";
 import { useBlogActionDialog } from "@/store/useBlogActionDialog";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -36,10 +37,12 @@ const schema = z.object({
 });
 type ISchema = z.infer<typeof schema>;
 
-type BlogActionDialogProps = {};
+type BlogActionDialogProps = {
+  refetch: () => void;
+};
 
-const BlogActionDialog = ({}: BlogActionDialogProps) => {
-  const { isOpen, onClose } = useBlogActionDialog();
+const BlogActionDialog = ({ refetch }: BlogActionDialogProps) => {
+  const { isOpen, onClose, blogData: actionBlogData } = useBlogActionDialog();
   const router = useRouter();
   const form = useForm<ISchema>({
     resolver: zodResolver(schema),
@@ -52,24 +55,43 @@ const BlogActionDialog = ({}: BlogActionDialogProps) => {
   };
 
   const { errors } = form.formState;
-  console.log("🚀 ~ BlogActionDialog ~ errors:", errors);
 
   const onSubmit = async (data: ISchema) => {
-    const response = await createBlog(data as IBlog);
+    const isUpdate = actionBlogData ? true : false;
+    if (isUpdate && !actionBlogData?.id) {
+      toast.error(`Blog Id is required`);
+      return;
+    }
+    const response = isUpdate
+      ? await updateBlog(actionBlogData?.id as string, data as IBlog)
+      : await createBlog(data as IBlog);
     if (response?.id) {
-      toast.success(`Blog ${data.title} is created.`);
+      toast.success(
+        `Blog ${data.title} is ${isUpdate ? "updated" : "created"}.`
+      );
       router.refresh();
+      refetch();
       onCloseModal();
     } else {
       toast.error(`${(response as any).message}`);
     }
   };
 
+  useEffect(() => {
+    form.reset({
+      category: actionBlogData?.category,
+      title: actionBlogData?.title,
+      detail: actionBlogData?.detail,
+    });
+  }, [actionBlogData]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onCloseModal}>
       <DialogContent className="bg-white text-clr-text rounded-lg lg:max-w-[800px]">
         <DialogHeader className="my-2">
-          <DialogTitle className="text-xl">Create Post</DialogTitle>
+          <DialogTitle className="text-xl">
+            {actionBlogData ? "Update" : "Create"} Post
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2 w-full">
@@ -79,6 +101,7 @@ const BlogActionDialog = ({}: BlogActionDialogProps) => {
                 onValueChange={(e) => {
                   form.setValue("category", e);
                 }}
+                defaultValue={actionBlogData?.category}
               >
                 <SelectTrigger className="flex items-center justify-center gap-2 bg-transparent border border-primary text-primary">
                   <SelectValue placeholder="Choose a community" />

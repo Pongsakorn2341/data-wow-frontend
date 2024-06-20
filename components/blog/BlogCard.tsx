@@ -4,22 +4,35 @@ import { Badge } from "@/components/ui/badge";
 
 import { IBlog } from "@/lib/types/blog";
 import Link from "next/link";
-import { FaRegComment } from "react-icons/fa6";
+import { FaRegComment, FaRegTrashCan, FaTrash } from "react-icons/fa6";
 import Profile from "../common/Profile";
+import { FaRegEdit } from "react-icons/fa";
+import { useBlogActionDialog } from "@/store/useBlogActionDialog";
 
 type BlogCardProps = {
   blogData: IBlog;
+  isOwn?: boolean;
 };
 
-const BlogCard = ({ blogData }: BlogCardProps) => {
+const BlogCard = ({ blogData, isOwn = false }: BlogCardProps) => {
+  const { onOpen } = useBlogActionDialog();
+
   return (
     <div
-      className="p-5 gap-2 cursor-pointer w-full"
+      className={`p-5 gap-2 w-full ${isOwn ? "" : "cursor-pointer"}`}
       key={blogData.title + blogData.created_at}
       onClick={(e) => e.preventDefault()}
     >
-      <Link href={`/blog/${blogData.id}`}>
-        <Profile name={blogData?.User?.username} profile_image="" />
+      <Link href={isOwn ? "#" : `/blog/${blogData.id}`}>
+        <div className="flex justify-between">
+          <Profile name={blogData?.User?.username} profile_image="" />
+          {isOwn ? (
+            <div className="flex gap-4">
+              <FaRegEdit onClick={() => onOpen(blogData)} />
+              <FaRegTrashCan />
+            </div>
+          ) : null}
+        </div>
         <Badge variant={"category"} className="my-2">
           {blogData.category}
         </Badge>

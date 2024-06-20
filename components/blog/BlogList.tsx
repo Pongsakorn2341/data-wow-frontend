@@ -5,15 +5,18 @@ import BlogCard from "@/components/blog/BlogCard";
 import useBlog from "@/hooks/useBlog.hook";
 import { cn } from "@/lib/utils";
 import { ImSpinner } from "react-icons/im";
-import { IBlog } from "@/lib/types/blog";
-import { useMemo } from "react";
+import BlogActionDialog from "./[dialog]/BlogActionDialog";
 
 type BlogListProps = {
   isOwn: boolean;
 };
 
 const BlogList = (props?: BlogListProps) => {
-  const { data: blogs, isLoading = false } = useBlog({
+  const {
+    data: blogs,
+    isLoading = false,
+    refetch,
+  } = useBlog({
     isOwn: Boolean(props?.isOwn),
   });
 
@@ -42,12 +45,13 @@ const BlogList = (props?: BlogListProps) => {
           blogs.map((blogData, idx) => {
             return (
               <div key={idx + blogData.title}>
-                <BlogCard blogData={blogData} />
+                <BlogCard blogData={blogData} isOwn={props?.isOwn} />
                 {idx < blogs.length - 1 ? <Separator /> : null}
               </div>
             );
           })}
       </div>
+      <BlogActionDialog refetch={refetch} />
     </div>
   );
 };
