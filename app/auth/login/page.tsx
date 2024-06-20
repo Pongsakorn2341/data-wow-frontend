@@ -3,7 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,8 +19,18 @@ type ISchema = z.infer<typeof schema>;
 
 const LoginPage = () => {
   const form = useForm<ISchema>({ resolver: zodResolver(schema) });
+  const router = useRouter();
   const { errors } = form.formState;
-  const onSubmit = (data: ISchema) => {};
+  const onSubmit = async (data: ISchema) => {
+    const res = await signIn("credentials", {
+      ...data,
+      action: "login",
+      redirect: false,
+    });
+    if (res?.status == 200) {
+      router.push(`/`);
+    }
+  };
 
   return (
     <section className="bg-clr-green-500 w-full h-[100dvh] flex flex-col-reverse sm:flex-row justify-end">
