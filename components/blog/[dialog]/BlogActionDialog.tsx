@@ -1,6 +1,6 @@
 "use client";
 
-import { createBlog, IBlog } from "@/action/blog.action";
+import { createBlog } from "@/action/blog.action";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,9 +18,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CategoryList } from "@/lib/data/category.data";
+import { IBlog } from "@/lib/types/blog";
 import { useBlogActionDialog } from "@/store/useBlogActionDialog";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register } from "module";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";

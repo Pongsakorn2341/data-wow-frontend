@@ -1,3 +1,4 @@
+import { IComment } from "@/lib/types/blog";
 import { getAccessToken } from "./common.action";
 
 type IAddComment = {
@@ -62,13 +63,13 @@ type IUpdateComment = {
 //   return result;
 // };
 
-export const getComments = async () => {
+export const getComments = async (blogId: string): Promise<IComment[]> => {
   const accessToken = await getAccessToken();
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/comment`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/comment?blog_id=${blogId}`,
     {
       headers: headers,
     }

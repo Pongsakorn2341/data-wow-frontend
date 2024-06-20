@@ -1,6 +1,5 @@
 "use client";
 
-import blogDetailPage from "@/app/(landingpage)/(routes)/blog/page";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { IBlog } from "@/lib/types/blog";

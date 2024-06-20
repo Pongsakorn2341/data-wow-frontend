@@ -27,3 +27,10 @@ export type IBlog = {
     Comment: number;
   };
 };
+
+export type IComment = {
+  id: string;
+  blog_id: string;
+  detail: string;
+  created_by: string;
+};

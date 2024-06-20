@@ -2,7 +2,7 @@
 import { Separator } from "@/components/ui/separator";
 
 import BlogCard from "@/components/blog/BlogCard";
-import { IBlog } from "@/action/blog.action";
+import { IBlog } from "@/lib/types/blog";
 
 type IBlogListProps = {
   blogs: IBlog[];
