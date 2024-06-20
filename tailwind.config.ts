@@ -1,20 +1,20 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1200px",
       },
     },
     extend: {
@@ -24,6 +24,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "secondary-background": "hsl(var(--secondary-background))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -52,6 +53,18 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        clr: {
+          green: "hsl(var(--clr-green))",
+          "green-500": "hsl(var(--clr-green-500))",
+          "green-300": "hsl(var(--clr-green-300))",
+          "green-100": "hsl(var(--clr-green-100))",
+          golden: "hsl(var(--clr-golden))",
+          black: "hsl(var(--clr-black))",
+          white: "hsl(var(--clr-white))",
+          text: "hsl(var(--clr-text))",
+          "gray-100": "hsl(var(--clr-gray-100))",
+          "gray-300": "hsl(var(--clr-gray-300))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -72,9 +85,12 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontFamily: {
+        castoro: ["Castoro"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
