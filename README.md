@@ -19,7 +19,7 @@
 * Tailwind CSS: For crafting a highly responsive and visually appealing user interface.
 * Shadcn/UI: Leveraged Shadcn/UI components for a consistent and polished UI/UX.
 * TypeScript: Ensuring type safety and enhanced developer experience.
-* API Integration: Integrated with Coin Gecko APIs for fetching real-time cryptocurrency data.
+* PrismaORM: Powerful ORM for database interactions.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -27,10 +27,11 @@
 
 ### Feature
 * User Authentication: Secure login and signup functionality to protect your data.
-* Dashboard: A comprehensive dashboard displaying an overview of your cryptocurrency holdings, current market values, and portfolio performance.
-* Portfolio Management: Easily add, update, and remove cryptocurrencies from your portfolio.
-* Real-time Data: Integration with cryptocurrency market APIs to provide real-time price updates and market trends.
-* Responsive Design: Fully responsive layout ensuring optimal user experience on both desktop and mobile devices.
+* Create and Edit Blogs: Authenticated users can create and edit blog posts using a rich text editor..
+* Dashboard: Users have a personal dashboard to manage their blog posts, view engagement metrics, and make updates.
+* Post Comments: Authenticated users can post comments on blog posts, with support for nested comments (replies).
+* Comment Moderation: Blog authors can moderate comments on their posts, including deleting inappropriate comments.
+* Cross-Device Compatibility: The platform is fully responsive, ensuring a seamless user experience on desktops, tablets, and mobile phones.
 
 
 ## Prerequisites
