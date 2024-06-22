@@ -50,7 +50,6 @@ Make sure you have installed all of the following prerequisites on your developm
     │   ├────── .env                         # Your Frontend environments
     │   ├── data-wow-backend         # clone and installation backend
     │   ├────── .env                         # Your Backend environments
-    │   └── docker-compose.yml          # docker file for start web application (Optional)
     └── ...
 
 ## Getting Start
@@ -104,77 +103,11 @@ $ pnpm start
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-## Docker Compose file
-
-```yml
-version: "3"
-services:
-  frontend:
-    build:
-      context: data-wow-frontend/
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-      - db
-    networks:
-      - app-network
-
-  backend:
-    build:
-      context: data-wow-backend/
-    ports:
-      - "4444:4444"
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - app-network
-    restart: always
-
-  db:
-    image: postgres:13
-    container_name: data-wow_postgres_db
-    environment:
-      POSTGRES_USER: tottee-user                # Your database username
-      POSTGRES_PASSWORD: tottee-password        # Your database password
-      POSTGRES_DB: develop                      # Your database name
-    volumes:
-      - pg_db_data:/var/lib/postgresql/data-wow-data
-    ports:
-      - "5432:5432"
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tottee-user -d develop"]   # Your database username and database name
-      interval: 10s
-      timeout: 30s
-      retries: 5
-
-networks:
-  app-network:
-    driver: bridge
-
-volumes:
-  pg_db_data:
-
-
 ```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-# Start Application with docker compose
-
-After finished package installation and setup env configuration files you can run command at directory that have a docker-compose.yml file
-
-```bash
-$ cd datawow-blog
-$ docker compose up -d
-```
 
 
 ## Contact

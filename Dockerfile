@@ -7,17 +7,19 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+RUN npm install -g pnpm
+
 # Install dependencies
-RUN npm install
+RUN pnpm install
 
 # Copy the rest of the application code
 COPY . .
 
 # Build the Next.js app
-RUN npm run build
+RUN pnpm build
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the Next.js app
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]
