@@ -74,7 +74,7 @@ $ pnpm install
 
 > Use your own env or retrive it from ".env.example"
 
-* ENV for development
+* create the file .env
 ```
 NEXTAUTH_URL=http://localhost:3000
 
