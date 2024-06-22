@@ -39,16 +39,16 @@ Make sure you have installed all of the following prerequisites on your developm
 * Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
 * Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. If you encounter any problems, you can also use this [GitHub Gist](https://gist.github.com/isaacs/579814) to install Node.js.
 * Node.js 20.* and above
-* Yarn - [Download & Install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable). Yarn package manager.
+* Pnpm - [Download & Install pnpm](https://pnpm.io/installation). Pnpm package manager.
 
 ### A typical top-level directory layout
 
     .
     ├── ...
     ├── datawow-blog                    # Your project directory
-    │   ├── datawow-frontend         # clone and installation frontend
+    │   ├── data-wow-frontend         # clone and installation frontend
     │   ├────── .env                         # Your Frontend environments
-    │   ├── datawow-backend         # clone and installation backend
+    │   ├── data-wow-backend         # clone and installation backend
     │   ├────── .env                         # Your Backend environments
     │   └── docker-compose.yml          # docker file for start web application (Optional)
     └── ...
@@ -67,7 +67,7 @@ $ git clone https://github.com/Pongsakorn2341/data-wow-backend.git
 
 2. Install the dependencies
 ```bash
-$ yarn install
+$ pnpm install
 ```
 
 3. Setup ENV
