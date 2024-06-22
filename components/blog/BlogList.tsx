@@ -6,7 +6,6 @@ import useBlog from "@/hooks/useBlog.hook";
 import { cn } from "@/lib/utils";
 import { ImSpinner } from "react-icons/im";
 import BlogActionDialog from "./[dialog]/BlogActionDialog";
-import DeleteBlogDialog from "./[dialog]/DeleteBlogDialog";
 
 type BlogListProps = {
   isOwn: boolean;
